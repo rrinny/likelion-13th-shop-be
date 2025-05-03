@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 
-public class Member {
+public class Member extends BaseTime {
     // PK 설정
     @Id
     @Column (name = "member_id")
