@@ -27,4 +27,29 @@ public class CartItem {
 
     private LocalDateTime createdBy;
     private LocalDateTime modifiedBy;
+
+    public static CartItem createCartItem(Cart cart, Item item, int count) {
+        // CartItem 객체 생성
+        CartItem cartItem = new CartItem();
+
+        // 생성한 객체에 Cart 객체 설정
+        cartItem.setCart(cart);
+
+        // 생성한 객체에 Item 객체 설정
+        cartItem.setItem(item);
+
+        // 생성한 객체에 상품 수량 설정
+        cartItem.setCount(count);
+
+        // 반환
+        return cartItem;
+    }
+
+    public void addCount(int count) {
+        this.count += count;
+    }
+
+    public void updateCount(int count) {
+        this.count = count;
+    }
 }
