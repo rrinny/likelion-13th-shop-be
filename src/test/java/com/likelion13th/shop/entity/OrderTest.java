@@ -111,7 +111,7 @@ public class OrderTest {
             // orderItem 생성
             OrderItem orderItem = new OrderItem();
             orderItem.setItem(item);
-            orderItem.setPrice(10000);
+            orderItem.setOrderPrice(10000);
             orderItem.setCount(1);
             orderItem.setOrder(order);
             orderItem.setCreatedBy(LocalDateTime.now());

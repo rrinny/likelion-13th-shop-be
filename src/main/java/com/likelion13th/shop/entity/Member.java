@@ -4,14 +4,16 @@ import com.likelion13th.shop.constant.Role;
 import com.likelion13th.shop.dto.MemberFormDto;
 import jakarta.persistence.*;
 import lombok.*;
-import java.time.LocalDateTime;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 
 @Entity
 @Table(name = "member")
 @Getter
 @Setter
 @ToString
-
 public class Member extends BaseTime {
     // PK 설정
     @Id
@@ -28,15 +30,20 @@ public class Member extends BaseTime {
 
     @Enumerated(EnumType.STRING)
     private Role role;
-    private LocalDateTime createdBy;
-    private LocalDateTime modifiedBy;
 
-    public static Member createMember(MemberFormDto memberFormDto) {
+    @CreatedBy
+    private String createdBy;
+
+    @LastModifiedBy
+    private String modifiedBy;
+
+    public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
         Member member = new Member();
-
         member.setName(memberFormDto.getName());
         member.setEmail(memberFormDto.getEmail());
-        member.setPassword(memberFormDto.getPassword());
+        String pwd = passwordEncoder.encode(memberFormDto.getPassword());
+        member.setPassword(pwd);
+        member.setRole(Role.USER);
         member.setAddress(memberFormDto.getAddress());
 
         return member;
